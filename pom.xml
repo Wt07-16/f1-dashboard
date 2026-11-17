@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>f1</groupId>
+  <artifactId>f1-dashboard</artifactId>
+  <version>0.1.0</version>
+  <packaging>jar</packaging>
+
+  <name>F1 Dashboard</name>
+  <description>F1 观赛桌面应用:实时排名 / 积分榜 / 赛历 / 新闻</description>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.release>26</maven.compiler.release>
+    <!-- JavaFX 稳定版(26.0.2 与 JDK 26 配套,平台原生包由 pom 内置 OS 激活自动解析) -->
+    <javafx.version>26.0.2</javafx.version>
+    <jackson.version>2.22.2</jackson.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>${javafx.version}</version>
+    </dependency>
+    <!-- 注意:不用 javafx-web(WebView)——JDK 26 移除了 jdk.jsobject 模块,
+         javafx-web 无法在 module-path 下解析;新闻原文用系统浏览器打开即可 -->
+    <!-- JSON(数据源解析) -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.16.0</version>
+      </plugin>
+      <!-- 终端里用 mvn javafx:run 启动 -->
+      <plugin>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-maven-plugin</artifactId>
+        <version>0.0.8</version>
+        <configuration>
+          <mainClass>f1.app.Main</mainClass>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
